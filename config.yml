@@ -1,0 +1,6 @@
+---
+stage: serverless-boilerplate
+region: us-west-2
+profile: default1
+accountId: 065858725437
+iamrole: arn:aws:iam::065858725437:role/Lambda

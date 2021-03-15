@@ -1,0 +1,29 @@
+service: serverless-boilerplate-email-service
+
+provider:
+  name: aws
+  profile: default1
+  role: ${self:custom.config.iamrole}
+  runtime: nodejs12.x
+  region: ${self:custom.config.region}
+  stage: ${self:custom.config.stage}
+  memorySize: 128
+  timeout: 30
+  versionFunctions: false
+  environment:
+    STAGE: ${self:custom.config.stage}
+    DATE_FORMAT: YYYY-MM-DDTHH:mm:ss.SSSZ
+    WORDSEARCH_WEB_URL: ${self:custom.config.wordSearchWebUrl}
+    SALT: ${self:custom.config.salt}
+
+functions:
+  email-send:
+    handler: functions/email-send.handler
+    events:
+      - http:
+          path: /email
+          method: post
+          cors: true
+
+custom:
+  config: ${file(../config.yml)}
